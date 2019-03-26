@@ -29,6 +29,12 @@ namespace chassis_interface {
   // get angular distance
   units::Angle get_dist_angular(Side side=side_both, bool from_reset=true); // returns total angular distance travelled by encoder wheels
 
+  // get linear velocity
+  units::LinearVelocity get_vel_linear(Side side=side_both); // returns current linear velocity of tracking wheel(s) (not scaled for distance from center)
+
+  // get angular velocity
+  units::AngularVelocity get_vel_angular(Side side=side_both); // returns current angular velocity of tracking wheel(s) (not scaled for distance from center)
+
   // reset distance tracking
   void reset_dist_linear(units::Distance dist, Side side=side_both); // resets current tracked distance (linear input)
   void reset_dist_angular(units::Angle dist, Side side=side_both); // resets current tracked distance (angular input)
@@ -45,6 +51,9 @@ namespace chassis_interface {
   // move with integrated velocity controller
   void move_velocity_integrated(units::AngularVelocity vel, Side side=side_both);
   void move_velocity_integrated(units::AngularVelocity left, units::AngularVelocity right);
+
+  // update interface
+  void update();
 }
 
 #endif
