@@ -33,9 +33,9 @@ namespace chassis_interface {
   void reset_dist_linear(units::Distance dist, Side side=side_both); // resets current tracked distance (linear input)
   void reset_dist_angular(units::Angle dist, Side side=side_both); // resets current tracked distance (angular input)
 
-  // move chassis
-  void move_voltage(int voltage, Side side=side_both); // voltage based movement
-  void move_voltage(int left, int right); // voltage based movement
+  // move with voltage control
+  void move_voltage(int voltage, Side side=side_both);
+  void move_voltage(int left, int right);
 
 
   // move with integrated velocity controller
