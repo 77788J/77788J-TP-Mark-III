@@ -37,6 +37,10 @@ namespace chassis_interface {
   void move_voltage(int voltage, Side side=side_both);
   void move_voltage(int left, int right);
 
+  // move with integrated position PID
+  void move_position_integrated(units::Distance dist, Side side=side_both);
+  void move_position_integrated(units::Distance left, units::Distance right);
+
 
   // move with integrated velocity controller
   void move_velocity_integrated(units::AngularVelocity vel, Side side=side_both);
