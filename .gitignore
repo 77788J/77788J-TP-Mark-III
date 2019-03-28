@@ -1,5 +1,6 @@
 bin/
 .vscode/
 wireless_downloader/
+compile_commands.json
 download.bat
 77788J Mark III.code-workspace
