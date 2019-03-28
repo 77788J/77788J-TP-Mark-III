@@ -4,11 +4,11 @@
 #include "main.h"
 #include "units.hpp"
 
-// side of chassis
-enum Side {side_none, side_left, side_right, side_both, side};
-
 // simple interface for basic chassis control
 namespace chassis_interface {
+
+  // side of chassis
+  enum Side {none, left, right, both};
 
   // measurements
   static const units::Distance WHEEL_CIRC = 3.25 * units::INCHES; // tracking wheel circumference
@@ -24,32 +24,32 @@ namespace chassis_interface {
   static const int PORT_BACK_RIGHT = 4;
 
   // get linear distance
-  units::Distance get_dist_linear(Side side=side_both, bool from_reset=true); // returns total linear distance travelled by encoder wheels
+  units::Distance get_dist_linear(Side side=both, bool from_reset=true); // returns total linear distance travelled by encoder wheels
 
   // get angular distance
-  units::Angle get_dist_angular(Side side=side_both, bool from_reset=true); // returns total angular distance travelled by encoder wheels
+  units::Angle get_dist_angular(Side side=both, bool from_reset=true); // returns total angular distance travelled by encoder wheels
 
   // get linear velocity
-  units::LinearVelocity get_vel_linear(Side side=side_both); // returns current linear velocity of tracking wheel(s) (not scaled for distance from center)
+  units::LinearVelocity get_vel_linear(Side side=both); // returns current linear velocity of tracking wheel(s) (not scaled for distance from center)
 
   // get angular velocity
-  units::AngularVelocity get_vel_angular(Side side=side_both); // returns current angular velocity of tracking wheel(s) (not scaled for distance from center)
+  units::AngularVelocity get_vel_angular(Side side=both); // returns current angular velocity of tracking wheel(s) (not scaled for distance from center)
 
   // reset distance tracking
-  void reset_dist_linear(units::Distance dist, Side side=side_both); // resets current tracked distance (linear input)
-  void reset_dist_angular(units::Angle dist, Side side=side_both); // resets current tracked distance (angular input)
+  void reset_dist_linear(units::Distance dist, Side side=both); // resets current tracked distance (linear input)
+  void reset_dist_angular(units::Angle dist, Side side=both); // resets current tracked distance (angular input)
 
   // move with voltage control
-  void move_voltage(int voltage, Side side=side_both);
+  void move_voltage(int voltage, Side side=both);
   void move_voltage(int left, int right);
 
   // move with integrated position PID
-  void move_position_integrated(units::Distance dist, Side side=side_both);
+  void move_position_integrated(units::Distance dist, Side side=both);
   void move_position_integrated(units::Distance left, units::Distance right);
 
 
   // move with integrated velocity controller
-  void move_velocity_integrated(units::AngularVelocity vel, Side side=side_both);
+  void move_velocity_integrated(units::AngularVelocity vel, Side side=both);
   void move_velocity_integrated(units::AngularVelocity left, units::AngularVelocity right);
 
   // update interface

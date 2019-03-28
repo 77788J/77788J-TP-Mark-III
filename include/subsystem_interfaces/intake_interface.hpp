@@ -7,6 +7,9 @@
 // simple interface for basic intake control
 namespace intake_interface {
 
+  // ports
+  static const int PORT = 6;
+
   // detect of limit switch pressed
   bool get_limit_pressed();
 

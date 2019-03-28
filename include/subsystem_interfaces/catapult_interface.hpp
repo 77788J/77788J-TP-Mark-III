@@ -15,6 +15,9 @@ namespace catapult_interface {
   static const float REDUCTION_SLIPGEAR = 5; // gear reduction from motor to slipgear
   static const float REDUCTION_CATAPULT = 25.0 / 3.0; // gear reduction from motor to catapult arm
 
+  // ports
+  static const int PORT = 5;
+
   // get current angle of slipgear
   units::Angle get_angle_slipgear(bool cumulative=false);
 
