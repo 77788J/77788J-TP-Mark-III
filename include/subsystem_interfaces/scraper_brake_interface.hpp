@@ -42,5 +42,6 @@ namespace scraper_interface {
   void move_position_angular(units::Angle angle, Subsystem subsystem=motor); // move to angle
   void move_position_linear(units::Distance height, Subsystem subsystem=scraper); // move to height
 }
+namespace brake_interface = scraper_interface;
 
 #endif
