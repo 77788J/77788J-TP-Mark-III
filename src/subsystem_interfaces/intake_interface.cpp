@@ -17,20 +17,24 @@ namespace intake_interface {
     return limit_switch.get_value();
   }
 
+
   // get current angle
   units::Angle get_angle() {
     return motor.get_position() * units::DEGREES;
   }
+
 
   // get current velocity (at motor)
   units::AngularVelocity get_velocity() {
     return motor.get_actual_velocity() * units::RPM;
   }
 
+
   // set voltage
   void move_voltage(int voltage) {
     motor.move_voltage(voltage);
   }
+
 
   // move with integrated velocity controller
   void move_velocity(units::AngularVelocity vel) {
