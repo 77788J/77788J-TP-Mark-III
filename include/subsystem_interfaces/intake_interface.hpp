@@ -8,7 +8,14 @@
 namespace intake_interface {
 
   // ports
-  static const int PORT = 6;
+  static const int PORT_MOTOR = 6;
+  static const char PORT_LIMIT = 'E';
+
+  // motors
+  extern pros::Motor motor;
+
+  // sensors
+  extern pros::ADIDigitalIn limit_switch;
 
   // detect of limit switch pressed
   bool get_limit_pressed();
