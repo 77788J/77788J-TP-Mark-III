@@ -7,16 +7,24 @@
 // simple interface for basic catapult control
 namespace catapult_interface {
 
+  // catapult positions
+  static const units::Angle ANGLE_CATAPULT_LOAD = -6 * units::DEGREES;
+  static const units::Angle ANGLE_CATAPULT_RELEASE = 30 * units::DEGREES;
+
   // slipgear positions
-  static const units::Angle ANGLE_SLIPGEAR_ENGAGE = 0; // angle at which slipgear engages
-  static const units::Angle ANGLE_SLIPGEAR_SLIP = 60; // angle at which slipgear slips
+  static const units::Angle ANGLE_SLIPGEAR_ENGAGE = 0 * units::DEGREES; // angle at which slipgear engages
+  static const units::Angle ANGLE_SLIPGEAR_SLIP = 60 * units::DEGREES; // angle at which slipgear slips
 
   // gear ratios
   static const float REDUCTION_SLIPGEAR = 5; // gear reduction from motor to slipgear
   static const float REDUCTION_CATAPULT = 25.0 / 3.0; // gear reduction from motor to catapult arm
+  static const float REDUCTION_SLIPGEAR_CATAPULT = 5.0 / 3.0; // gear reduction from slipgear to catapult arm
 
   // ports
   static const int PORT = 5;
+
+  // motor
+  extern pros::Motor motor;
 
   // get current angle of slipgear
   units::Angle get_angle_slipgear(bool cumulative=false);
