@@ -9,7 +9,7 @@ namespace intake_interface {
 
   // ports
   static const int PORT_MOTOR = 6;
-  static const char PORT_LIMIT = 'E';
+  static const char PORT_LIMIT = 'H';
 
   // motors
   extern pros::Motor motor;

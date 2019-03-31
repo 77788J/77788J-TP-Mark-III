@@ -21,7 +21,7 @@ namespace catapult_interface {
   static const float REDUCTION_SLIPGEAR_CATAPULT = 5.0 / 3.0; // gear reduction from slipgear to catapult arm
 
   // ports
-  static const int PORT = 5;
+  static const int PORT = 3;
 
   // motor
   extern pros::Motor motor;

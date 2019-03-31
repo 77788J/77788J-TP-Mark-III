@@ -15,7 +15,7 @@ namespace chassis_interface {
 
   // encoders
   pros::ADIEncoder encoder_left(PORT_ENCODER_LEFT_1, PORT_ENCODER_LEFT_2);
-  pros::ADIEncoder encoder_right(PORT_ENCODER_RIGHT_1, PORT_ENCODER_RIGHT_2);
+  pros::ADIEncoder encoder_right(PORT_ENCODER_RIGHT_1, PORT_ENCODER_RIGHT_2, true);
 
   // reference variables
   units::Angle reference_encoder_left = 0;
@@ -41,8 +41,9 @@ namespace chassis_interface {
 
 
   // get orientation
-  units::Angle get_orienation(bool from_reset) {
-    return ((get_dist_linear(right, false) / WHEEL_DIST_RIGHT) - (get_dist_linear(left, false) / WHEEL_DIST_LEFT)) * .5 + reference_orientation * from_reset;
+  units::Angle get_orientation(bool from_reset) {
+    // return ((get_dist_linear(right, false) / WHEEL_DIST_RIGHT) - (get_dist_linear(left, false) / WHEEL_DIST_LEFT)) * .5 + reference_orientation * from_reset;
+    return (get_dist_linear(right, false) - get_dist_linear(left, false)) / WHEEL_DIST + reference_orientation * from_reset;
   }
 
 

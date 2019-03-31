@@ -29,7 +29,7 @@ namespace scraper_interface {
   static const units::Angle ANGLE_SCRAPER_FLIP = -180 * units::DEGREES;
 
   // ports
-  static const int PORT = 8;
+  static const int PORT = 4;
 
   // motor
   extern pros::Motor motor;

@@ -18,7 +18,7 @@ namespace lift_interface {
   static const units::Angle ANGLE_HOLD_CAP = -25 * units::DEGREES;
 
   // ports
-  static const int PORT = 7;
+  static const int PORT = 8;
 
   // motor
   extern pros::Motor motor;
