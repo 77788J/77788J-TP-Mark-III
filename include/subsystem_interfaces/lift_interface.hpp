@@ -7,17 +7,21 @@
 // simple interface for basic lift control
 namespace lift_interface {
 
-  // gear reduction
+  // physical characteristics
   static const float GEAR_REDUCTION = 5;
+  static const units::Distance BAR_LENGTH = 15 * units::INCHES;
 
   // predefined positions
-  static const units::Angle ANGLE_MIN = 0 * units::DEGREES;
-  static const units::Angle ANGLE_MAX = 180 * units::DEGREES;
-  static const units::Angle ANGLE_EXTEND = 45 * units::DEGREES;
-  static const units::Angle ANGLE_HOLD_CAP = 20 * units::DEGREES;
+  static const units::Angle ANGLE_MIN = -45 * units::DEGREES;
+  static const units::Angle ANGLE_MAX = 135 * units::DEGREES;
+  static const units::Angle ANGLE_EXTEND = 0 * units::DEGREES;
+  static const units::Angle ANGLE_HOLD_CAP = -25 * units::DEGREES;
 
   // ports
   static const int PORT = 7;
+
+  // motor
+  extern pros::Motor motor;
 
   // get current angle
   units::Angle get_angle(bool at_motor=false);
