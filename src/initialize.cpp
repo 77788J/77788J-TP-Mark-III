@@ -1,6 +1,9 @@
 #include "main.h"
+#include "subsystem_controllers/controllers.hpp"
 
-void initialize() {}
+void initialize() {
+  controllers::initialize();
+}
 
 void disabled() {}
 

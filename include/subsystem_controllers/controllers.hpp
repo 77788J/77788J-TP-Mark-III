@@ -9,7 +9,7 @@
 
 namespace controllers {
 
-  extern pros::Task task;
+  extern pros::Task* task;
 
   void initialize();
 

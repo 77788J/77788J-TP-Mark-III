@@ -3,11 +3,13 @@
 namespace controllers {
 
   // create update task
-  pros::Task task(update);
+  pros::Task* task = nullptr;
 
 
   // initialize al subsystem controllers
-  void initialize() {}
+  void initialize() {
+    *task = pros::Task(update);
+  }
 
 
   // update all subsystem controllers
