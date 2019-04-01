@@ -47,16 +47,14 @@ namespace chassis_interface {
   // get orientation
   units::Angle get_orientation(bool from_reset=true);
 
-  #define VELOCITY_IMPLEMENTED false
-  #if VELOCITY_IMPLEMENTED
-
   // get linear velocity
   units::LinearVelocity get_vel_linear(Side side=both); // returns current linear velocity of tracking wheel(s) (not scaled for distance from center)
 
   // get angular velocity
   units::AngularVelocity get_vel_angular(Side side=both); // returns current angular velocity of tracking wheel(s) (not scaled for distance from center)
 
-  #endif
+  // get rotational velocity
+  units::AngularVelocity get_vel_orientation(); // returns current rotation velocity of robot
 
   // reset distance tracking
   void reset_dist_linear(units::Distance dist=0, Side side=both); // resets current tracked distance (linear input)

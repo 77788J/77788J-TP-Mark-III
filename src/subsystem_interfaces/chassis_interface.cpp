@@ -4,8 +4,6 @@ namespace chassis_interface {
 
   // scalars
   static const float DISTANCE_SCALAR = WHEEL_DIAM * .5;
-  // static const float ORIENTATION_SCALER_LEFT = DISTANCE_SCALAR / WHEEL_DIST_LEFT;
-  // static const float ORIENTATION_SCALER_RIGHT = DISTANCE_SCALAR / WHEEL_DIST_RIGHT;
 
   // motors
   pros::Motor motor_front_left(PORT_FRONT_LEFT, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_DEGREES);
@@ -21,6 +19,12 @@ namespace chassis_interface {
   units::Angle reference_encoder_left = 0;
   units::Angle reference_encoder_right = 0;
   units::Angle reference_orientation = 0;
+
+
+  // velocity variavles
+  units::AngularVelocity vel_left = 0;
+  units::AngularVelocity vel_right = 0;
+  units::AngularVelocity vel_orient = 0;
 
 
   // get linear distance
@@ -44,6 +48,29 @@ namespace chassis_interface {
   units::Angle get_orientation(bool from_reset) {
     // return ((get_dist_linear(right, false) / WHEEL_DIST_RIGHT) - (get_dist_linear(left, false) / WHEEL_DIST_LEFT)) * .5 + reference_orientation * from_reset;
     return (get_dist_linear(right, false) - get_dist_linear(left, false)) / WHEEL_DIST + reference_orientation * from_reset;
+  }
+
+
+  // get linear velocity
+  units::LinearVelocity get_vel_linear(Side side) {
+    return get_vel_angular(side) * DISTANCE_SCALAR;
+  }
+
+
+  // get angular velocity
+  units::AngularVelocity get_vel_angular(Side side) {
+    switch (side) {
+      case (left): return vel_left; break;
+      case (right): return vel_right; break;
+      case (both): return (vel_left + vel_right) * .5; break;
+      case (none): return 0; break;
+    }
+  }
+
+
+  // get rotational velocity
+  units::AngularVelocity get_vel_orientation() {
+    return vel_orient;
   }
 
 
@@ -116,6 +143,22 @@ namespace chassis_interface {
   
 
   // update interface
-  void update() {}
+  units::Time last_update = pros::millis() * units::MS;
+  units::Angle last_pos_left = get_dist_angular(left);
+  units::Angle last_pos_right = get_dist_angular(right);
+  units::Angle last_pos_orientation = get_orientation();
+  void update() {
 
+    // calculate velocity
+    units::Time elapsed = pros::millis() * units::MS - last_update;
+    vel_left = vel_left * .6 + (get_dist_angular(left) - last_pos_left) / elapsed * .4;
+    vel_right = vel_right * .6 + (get_dist_angular(right) - last_pos_right) / elapsed * .4;
+    vel_orient = vel_orient * .6 + (get_orientation() - last_pos_orientation) / elapsed * .4;
+
+    // set previous values
+    last_update = pros::millis() * units::MS;
+    last_pos_left = get_dist_angular(left);
+    last_pos_right = get_dist_angular(right);
+    last_pos_orientation = get_orientation();
+  }
 }
