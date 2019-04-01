@@ -1,4 +1,5 @@
 #include "subsystem_controllers/catapult_controller.hpp"
+#include "subsystem_controllers/intake_controller.hpp"
 
 namespace catapult_controller {
 
@@ -18,6 +19,8 @@ namespace catapult_controller {
     set_override(false);
 
     if (wait_for_fire) while (catapult_interface::get_angle_slipgear() > 5 * units::DEGREES) pros::delay(10);
+    intake_controller::balls_loaded = 0;
+    intake_controller::balls_in_possession = 0;
   }
 
 

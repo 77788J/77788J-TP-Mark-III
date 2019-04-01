@@ -6,8 +6,8 @@
 namespace intake_controller {
 
   // vision sensor
-  static const int PORT_VISION = 11;
-  static const int VISION_THRESHOLD = 100;
+  static const int PORT_VISION = 5;
+  static const int VISION_THRESHOLD = 25;
   extern pros::Vision vision;
 
   // intake mode
