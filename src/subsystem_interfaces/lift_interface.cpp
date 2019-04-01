@@ -10,20 +10,20 @@ namespace lift_interface {
 
   // get current angle
   units::Angle get_angle(bool at_motor) {
-    if (at_motor) return motor.get_position() * units::DEGREES / GEAR_REDUCTION + ANGLE_MIN;
+    if (!at_motor) return motor.get_position() * units::DEGREES / GEAR_REDUCTION + ANGLE_MIN;
     else return motor.get_position() * units::DEGREES;
   }
 
 
   // calculate current height
   units::Distance get_height() {
-    return sin(get_angle()) * BAR_LENGTH;
+    return sin(get_angle()) * BAR_LENGTH + FULCRUM_HEIGHT;
   }
 
 
   // get current velocity
   units::AngularVelocity get_velocity(bool at_motor) {
-    return motor.get_actual_velocity() / GEAR_REDUCTION;
+    return motor.get_actual_velocity() / (at_motor ? 1 : GEAR_REDUCTION);
   }
 
 
