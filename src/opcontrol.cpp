@@ -6,7 +6,7 @@
 void opcontrol() {
   Joystick controller;
 
-  int lift_pos = 0;
+  interfaces::initialize();
 
   while (true) {
 
@@ -14,6 +14,7 @@ void opcontrol() {
     controller.update();
 
     // TODO put these in own task
+    chassis_interface::update();
     catapult_controller::update();
     intake_controller::update();
 
@@ -42,6 +43,22 @@ void opcontrol() {
     if (controller.btn_down) {
       for (int i = 3; i  >= 0; i--) {
         if (lift_interface::get_angle() > lift_controller::lift_targets[i] + 8 * units::DEGREES) lift_controller::goto_angle(lift_controller::lift_targets[i], false); break;
+      }
+    }
+
+    // scraper/brake
+    if (controller.btn_l1 && controller.btn_l2) scraper_controller::brake(false);
+    else {
+      if (scraper_controller::is_braked) scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_INTAKE, false);
+      if (controller.btn_l1) {
+        for (int i = 0; i < 5; ++i) {
+          if (scraper_interface::get_angle() < scraper_controller::targets[i] - 6 * units::DEGREES) scraper_controller::goto_angle(scraper_controller::targets[i], false); break;
+        }
+      }
+      if (controller.btn_l2) {
+        for (int i = 4; i >= 0; --i) {
+          if (scraper_interface::get_angle() > scraper_controller::targets[i] + 6 * units::DEGREES) scraper_controller::goto_angle(scraper_controller::targets[i], false); break;
+        }
       }
     }
 

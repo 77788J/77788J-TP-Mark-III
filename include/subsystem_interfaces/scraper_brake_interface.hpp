@@ -35,13 +35,13 @@ namespace scraper_interface {
   extern pros::Motor motor;
 
   // get current angle
-  units::Angle get_angle(Subsystem subsystem);
+  units::Angle get_angle(Subsystem subsystem=subsystem_motor);
 
   // calculate current height
-  units::Distance get_height(Subsystem subsystem);
+  units::Distance get_height(Subsystem subsystem=scraper);
 
   // get current velocity
-  units::AngularVelocity get_velocity(Subsystem subsystem);
+  units::AngularVelocity get_velocity(Subsystem subsystem=subsystem_motor);
 
   // set voltage
   void move_voltage(int voltage);

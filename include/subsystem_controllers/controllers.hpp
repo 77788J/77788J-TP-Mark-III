@@ -5,5 +5,6 @@
 #include "chassis_controller.hpp"
 #include "intake_controller.hpp"
 #include "lift_controller.hpp"
+#include "scraper_brake_controller.hpp"
 
 #endif

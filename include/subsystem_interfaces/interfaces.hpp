@@ -18,7 +18,7 @@ namespace interfaces {
   using namespace scraper_interface;
 
   // update all interfaces
-  void update();
+  void initialize();
 }
 
 #endif
