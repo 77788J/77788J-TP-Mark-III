@@ -7,4 +7,14 @@
 #include "lift_controller.hpp"
 #include "scraper_brake_controller.hpp"
 
+namespace controllers {
+
+  extern pros::Task task;
+
+  void initialize();
+
+  void update(void* params);
+
+}
+
 #endif

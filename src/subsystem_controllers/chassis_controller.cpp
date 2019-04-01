@@ -129,4 +129,15 @@ namespace chassis_controller {
     // wait if applicable
     if (wait) while (!*move_pid_flag) pros::delay(10);
   }
+
+
+  // update controller
+  void update() {
+    switch (mode) {
+
+      case (none): break;
+      case (dist_pid): move_dist_pid_async(move_pid_target, move_pid_constants, move_pid_flag); break;
+      case (rot_pid): rotate_pid_async(rotate_pid_target, rotate_pid_constants, rotate_pid_flag); break;
+    }
+  }
 }

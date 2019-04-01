@@ -18,6 +18,9 @@ namespace chassis_controller {
   // rotate with custom PID controller
   void rotate_pid(units::Angle orientation, PidConstants constants, bool wait=true, bool* flag=nullptr);
 
+  // update controller
+  void update();
+
 }
 
 #endif
