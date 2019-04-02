@@ -8,7 +8,7 @@ namespace controllers {
 
   // initialize al subsystem controllers
   void initialize() {
-    *task = pros::Task(update);
+    task = new pros::Task(update);
   }
 
 

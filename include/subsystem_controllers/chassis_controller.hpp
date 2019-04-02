@@ -10,6 +10,7 @@ namespace chassis_controller {
     float ki; // integral constant
     float kd; // derivative constant
     float max_accel; // maximum acceleration (vel difference per 10ms)
+    int min_voltage; // minimum voltage to supply
   } PidConstants;
 
   // move distance with custom PID controller

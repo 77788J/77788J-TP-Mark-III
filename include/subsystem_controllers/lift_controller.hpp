@@ -7,7 +7,7 @@ namespace lift_controller {
 
   static const units::Angle lift_targets[4] = {
     lift_interface::ANGLE_MIN,
-    lift_interface::ANGLE_HOLD_CAP,
+    // lift_interface::ANGLE_HOLD_CAP,
     lift_interface::ANGLE_EXTEND,
     lift_interface::ANGLE_MAX
   };

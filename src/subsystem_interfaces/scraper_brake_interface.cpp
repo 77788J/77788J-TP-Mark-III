@@ -5,7 +5,7 @@ namespace scraper_interface {
 
 
   // motor
-  pros::Motor motor(PORT, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_DEGREES);
+  pros::Motor motor(PORT, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_DEGREES);
 
 
   // get current angle

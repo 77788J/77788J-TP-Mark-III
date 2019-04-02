@@ -36,13 +36,19 @@ void opcontrol() {
 
     // lift
     if (controller.btn_up) {
-      for (int i = 0; i < 4; i++) {
-        if (lift_interface::get_angle() < lift_controller::lift_targets[i] - 8 * units::DEGREES) lift_controller::goto_angle(lift_controller::lift_targets[i], false); break;
+      for (int i = 0; i < 3; i++) {
+        if (lift_interface::get_angle() < lift_controller::lift_targets[i] - 8 * units::DEGREES) {
+          lift_controller::goto_angle(lift_controller::lift_targets[i], false);
+          break;
+        }
       }
     }
     if (controller.btn_down) {
       for (int i = 3; i  >= 0; i--) {
-        if (lift_interface::get_angle() > lift_controller::lift_targets[i] + 8 * units::DEGREES) lift_controller::goto_angle(lift_controller::lift_targets[i], false); break;
+        if (lift_interface::get_angle() > lift_controller::lift_targets[i] + 8 * units::DEGREES) {
+          lift_controller::goto_angle(lift_controller::lift_targets[i], false);
+          break;
+        }
       }
     }
 
@@ -52,15 +58,23 @@ void opcontrol() {
       if (scraper_controller::is_braked) scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_INTAKE, false);
       if (controller.btn_l1) {
         for (int i = 0; i < 5; ++i) {
-          if (scraper_interface::get_angle() < scraper_controller::targets[i] - 6 * units::DEGREES) scraper_controller::goto_angle(scraper_controller::targets[i], false); break;
+          if (scraper_interface::get_angle() < scraper_controller::targets[i] - 6 * units::DEGREES) {
+            scraper_controller::goto_angle(scraper_controller::targets[i], false);
+            break;
+          }
         }
       }
       if (controller.btn_l2) {
         for (int i = 4; i >= 0; --i) {
-          if (scraper_interface::get_angle() > scraper_controller::targets[i] + 6 * units::DEGREES) scraper_controller::goto_angle(scraper_controller::targets[i], false); break;
+          if (scraper_interface::get_angle() > scraper_controller::targets[i] + 6 * units::DEGREES) {
+            scraper_controller::goto_angle(scraper_controller::targets[i], false);
+            break;
+          }
         }
       }
     }
+
+    printf("lift angle: %Lf\tscraper angle: %Lf\n", lift_interface::get_angle(), scraper_interface::get_angle());
 
     pros::delay(10);
   }

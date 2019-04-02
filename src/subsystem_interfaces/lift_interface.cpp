@@ -36,6 +36,7 @@ namespace lift_interface {
   // move with integrated position controller
   void move_position_angular(units::Angle angle) {
     motor.move_absolute((angle - ANGLE_MIN) * GEAR_REDUCTION / units::DEGREES, 200);
+    printf("goto %Lf", angle / units::DEGREES);
   }
   void move_position_linear(units::Distance height) {
     units::Angle angle = asin(height / BAR_LENGTH);
