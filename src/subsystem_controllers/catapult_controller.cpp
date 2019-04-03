@@ -15,7 +15,7 @@ namespace catapult_controller {
 
   // fire catapult
   void fire(bool wait_for_fire) {
-    slipgear_target += 120 * units::DEGREES;
+    slipgear_target += 180 * units::DEGREES;
     set_override(false);
 
     if (wait_for_fire) while (catapult_interface::get_angle_slipgear() > 5 * units::DEGREES) pros::delay(10);

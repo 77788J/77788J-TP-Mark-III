@@ -5,8 +5,7 @@
 
 namespace scraper_controller {
 
-  static const units::Angle targets[5] = {
-    scraper_interface::ANGLE_BRAKE_ENGAGED,
+  static const units::Angle targets[4] = {
     scraper_interface::ANGLE_SCRAPER_INTAKE,
     scraper_interface::ANGLE_SCRAPER_VERTICAL,
     scraper_interface::ANGLE_SCRAPER_SCRAPE,

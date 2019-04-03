@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "C:\\Users\\zachc\\Documents\\vex\\RobotCode\\TP\\77788J-TP-Mark-II\\src\\auton_selector"
+		}
+	],
+	"settings": {
+		"cquery.cacheDirectory": "${workspaceFolder}/.vscode/cquery_cached_index/"
+	}
+}

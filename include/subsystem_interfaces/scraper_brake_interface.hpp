@@ -20,13 +20,13 @@ namespace scraper_interface {
 
   // predefined positions (motor angle)
   static const units::Angle ANGLE_BRAKE_RETRACTED = 0 * units::DEGREES;
-  static const units::Angle ANGLE_BRAKE_ENGAGED = 180 * units::DEGREES;
+  static const units::Angle ANGLE_BRAKE_ENGAGED = 155 * units::DEGREES;
   static const units::Angle ANGLE_SCRAPER_RETRACTED = 0 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_INTAKE = -15 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_VERTICAL = -45 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_EXTENDED = -135 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_SCRAPE = -160 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_FLIP = -180 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_INTAKE = -28 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_VERTICAL = -70 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_EXTENDED = -150 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_SCRAPE = -170 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_FLIP = -190 * units::DEGREES;
 
   // ports
   static const int PORT = 4;

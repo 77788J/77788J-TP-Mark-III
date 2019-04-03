@@ -8,6 +8,7 @@ namespace intake_controller {
 
   // intake mode
   IntakeMode mode = automatic;
+  bool enable_automatic = false;
 
 
   // rules
@@ -63,25 +64,30 @@ namespace intake_controller {
     // auto intake
     if (mode == automatic) {
 
-      // check if ball is present
-      bool ball = false;
-      if (vision.get_object_count() > 0) {
-        pros::vision_object_s_t b = vision.get_by_sig(0, 1);
-        if (b.height * b.width >= 10000 && b.top_coord < VISION_THRESHOLD) {
-          ball = true;
-          time_since_intake = 0;
+      // check if enabled
+      if (!enable_automatic) intake_interface::move_voltage(0);
+      else {
+
+        // check if ball is present
+        bool ball = false;
+        if (vision.get_object_count() > 0) {
+          pros::vision_object_s_t b = vision.get_by_sig(0, 1);
+          if (b.height * b.width >= 5000 && b.top_coord < VISION_THRESHOLD) {
+            ball = true;
+            time_since_intake = 0;
+          }
         }
+
+        // set intake
+        // if (ball_in_intake && (balls_loaded >= max_balls_loaded)) intake_interface::move_velocity(0);
+        // else if ((ball && balls_in_possession < max_balls_in_posession) || (ball_in_intake && balls_loaded < max_balls_loaded))
+        //   intake_interface::move_voltage(12000);
+        if (ball) intake_interface::move_voltage(12000);
+        else if (time_since_intake <= 750 * units::MS) intake_interface::move_voltage(12000);
+        else intake_interface::move_voltage(0);
+
+        time_since_intake += 10;
       }
-
-      // set intake
-      if (ball_in_intake && (balls_loaded >= max_balls_loaded)) intake_interface::move_velocity(0);
-      else if ((ball && balls_in_possession < max_balls_in_posession) || (ball_in_intake && balls_loaded < max_balls_loaded))
-        intake_interface::move_voltage(12000);
-      else if (time_since_intake <= 375 * units::MS) intake_interface::move_voltage(12000);
-      else intake_interface::move_voltage(0);
-
-      time_since_intake += 10;
-      printf("ball: %d\ttime: %f\n", ball, time_since_intake);
     }
   }
 }

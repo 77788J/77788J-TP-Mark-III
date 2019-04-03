@@ -13,6 +13,7 @@ namespace intake_controller {
   // intake mode
   enum IntakeMode {automatic, succ, spit, off, hold};
   extern IntakeMode mode;
+  extern bool enable_automatic;
 
   // rules
   extern int max_balls_in_posession;

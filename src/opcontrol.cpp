@@ -3,10 +3,13 @@
 #include "subsystem_controllers/controllers.hpp"
 #include "lib/joystick.hpp"
 
+bool auto_intake_enabled = true;
+
 void opcontrol() {
   Joystick controller;
 
   interfaces::initialize();
+  controller.controller.set_text(0, 0, intake_controller::enable_automatic ? "AUTO ENABLED" : "AUTO DISABLED");
 
   while (true) {
 
@@ -30,6 +33,10 @@ void opcontrol() {
     if (controller.btn_x_new == -1) catapult_controller::set_override(false);
 
     // intake
+    // if (controller.btn_y_new == 1) {
+    //   intake_controller::enable_automatic = !intake_controller::enable_automatic;
+    //   controller.controller.set_text(0, 0, intake_controller::enable_automatic ? "AUTO ENABLED" : "AUTO DISABLED");
+    // }
     if (controller.btn_r2) intake_controller::set_mode(intake_controller::succ);
     else if (controller.btn_a) intake_controller::set_mode(intake_controller::spit);
     else intake_controller::set_mode(intake_controller::automatic);
@@ -56,25 +63,23 @@ void opcontrol() {
     if (controller.btn_l1 && controller.btn_l2) scraper_controller::brake(false);
     else {
       if (scraper_controller::is_braked) scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_INTAKE, false);
-      if (controller.btn_l1) {
-        for (int i = 0; i < 5; ++i) {
-          if (scraper_interface::get_angle() < scraper_controller::targets[i] - 6 * units::DEGREES) {
-            scraper_controller::goto_angle(scraper_controller::targets[i], false);
-            break;
-          }
-        }
-      }
       if (controller.btn_l2) {
-        for (int i = 4; i >= 0; --i) {
+        for (int i = 0; i < 4; ++i) {
           if (scraper_interface::get_angle() > scraper_controller::targets[i] + 6 * units::DEGREES) {
             scraper_controller::goto_angle(scraper_controller::targets[i], false);
             break;
           }
         }
       }
+      if (controller.btn_l1) {
+        for (int i = 3; i >= 0; --i) {
+          if (scraper_interface::get_angle() < scraper_controller::targets[i] - 6 * units::DEGREES) {
+            scraper_controller::goto_angle(scraper_controller::targets[i], false);
+            break;
+          }
+        }
+      }
     }
-
-    printf("lift angle: %Lf\tscraper angle: %Lf\n", lift_interface::get_angle(), scraper_interface::get_angle());
 
     pros::delay(10);
   }
