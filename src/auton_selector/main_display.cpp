@@ -13,9 +13,9 @@ namespace auton_selector {
 
   // callbacks
   lv_res_t btn_click_action_red_flag(lv_obj_t * btn) {autons::selected = autons::auto_red_flag; return LV_RES_OK;}
-  lv_res_t btn_click_action_red_cap(lv_obj_t * btn) {autons::selected = autons::auto_red_cap; return LV_RES_OK;}
-  lv_res_t btn_click_action_blue_flag(lv_obj_t * btn) {autons::selected = autons::auto_blue_flag; return LV_RES_OK;}
-  lv_res_t btn_click_action_blue_cap(lv_obj_t * btn) {autons::selected = autons::auto_blue_cap; return LV_RES_OK;}
+  lv_res_t btn_click_action_red_cap(lv_obj_t * btn) {autons::selected = nullptr; return LV_RES_OK;}
+  lv_res_t btn_click_action_blue_flag(lv_obj_t * btn) {autons::selected = nullptr; return LV_RES_OK;}
+  lv_res_t btn_click_action_blue_cap(lv_obj_t * btn) {autons::selected = nullptr; return LV_RES_OK;}
   lv_res_t btn_click_action_no_auton(lv_obj_t * btn) {autons::selected = nullptr; return LV_RES_OK;}
 
 

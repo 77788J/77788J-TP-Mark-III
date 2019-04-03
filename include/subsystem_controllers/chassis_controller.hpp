@@ -13,11 +13,15 @@ namespace chassis_controller {
     int min_voltage; // minimum voltage to supply
   } PidConstants;
 
+  // constants
+  extern PidConstants dist_pid_constants;
+  extern PidConstants orientation_pid_constants;
+
   // move distance with custom PID controller
-  void move_dist_pid(units::Distance dist, PidConstants constants, bool wait=true, bool* flag=nullptr);
+  void move_dist_pid(units::Distance dist, PidConstants constants=dist_pid_constants, bool wait=true, bool* flag=nullptr);
 
   // rotate with custom PID controller
-  void rotate_pid(units::Angle orientation, PidConstants constants, bool wait=true, bool* flag=nullptr);
+  void rotate_pid(units::Angle orientation, PidConstants constants=orientation_pid_constants, bool wait=true, bool* flag=nullptr);
 
   // update controller
   void update();
