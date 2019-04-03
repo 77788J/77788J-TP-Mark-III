@@ -9,10 +9,20 @@
 
 namespace controllers {
 
+  // task
   extern pros::Task* task;
+  
+  // mutexes
+  extern pros::Mutex catapult_mutex;
+  extern pros::Mutex chassis_mutex;
+  extern pros::Mutex intake_mutex;
+  extern pros::Mutex lift_mutex;
+  extern pros::Mutex scraper_mutex;
 
+  // initializer
   void initialize();
 
+  // update function
   void update(void* params);
 
 }
