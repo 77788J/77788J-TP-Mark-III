@@ -27,7 +27,7 @@ namespace macros {
 
 
   // set current macro
-  void set_current_macro(Macro macro) {
+  void set_macro(Macro macro) {
 
     // restart task if current running macro
     if (current != macro_none) {

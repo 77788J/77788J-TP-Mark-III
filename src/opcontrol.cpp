@@ -1,4 +1,5 @@
 #include "main.h"
+#include "macros.hpp"
 #include "subsystem_interfaces/interfaces.hpp"
 #include "subsystem_controllers/controllers.hpp"
 #include "lib/joystick.hpp"
@@ -30,6 +31,7 @@ void opcontrol() {
         catapult_controller::set_override(true);
       }
       if (controller.btn_x_new == -1) catapult_controller::set_override(false);
+      if (controller.btn_y_new == 1) macros::set_macro(macros::macro_calibrate_slipgear);
       controllers::catapult_mutex.give();
     }
 
