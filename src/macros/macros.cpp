@@ -7,7 +7,7 @@ namespace macros {
 
 
   // current macro
-  Macro current = macro_none;
+  Macro current = macro_init;
 
 
   // update macros
@@ -16,6 +16,7 @@ namespace macros {
       switch (current) {
 
         case (macro_none): break;
+        case (macro_init): break;
         case (macro_calibrate_slipgear): calibrate_slipgear(); break;
 
       }
@@ -28,6 +29,8 @@ namespace macros {
 
   // set current macro
   void set_macro(Macro macro) {
+
+    printf("CALIBRATE");
 
     // restart task if current running macro
     if (current != macro_none) {

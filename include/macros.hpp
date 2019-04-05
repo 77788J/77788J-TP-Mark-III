@@ -10,7 +10,7 @@ namespace macros {
   extern pros::Task* task;
 
   // current macro
-  enum Macro {macro_none, macro_calibrate_slipgear};
+  enum Macro {macro_init, macro_none, macro_calibrate_slipgear};
   extern Macro current;
 
   // update macros

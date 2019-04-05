@@ -10,6 +10,7 @@ namespace autons {
   // functions
   void auto_red_flag(bool park);
   void auto_blue_flag(bool park);
+  void auto_blue_flag_meta(bool park);
   void auto_red_cap(bool park);
   void auto_blue_cap(bool park);
 

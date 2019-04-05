@@ -1,4 +1,5 @@
 #include "subsystem_controllers/controllers.hpp"
+#include "macros.hpp"
 
 namespace controllers {
 
@@ -17,6 +18,8 @@ namespace controllers {
   // initialize al subsystem controllers
   void initialize() {
     task = new pros::Task(update);
+    macros::task = new pros::Task(macros::update);
+    macros::set_macro(macros::macro_none);
   }
 
 

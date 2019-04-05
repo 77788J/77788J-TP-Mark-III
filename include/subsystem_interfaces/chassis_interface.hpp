@@ -14,7 +14,7 @@ namespace chassis_interface {
   static const units::Distance WHEEL_DIAM = 3.25 * units::INCHES; // tracking wheel diameter
   static const units::Distance WHEEL_DIST_LEFT = 3.34927 * units::INCHES; // horizontal distance of left tracking wheel from center of chassis
   static const units::Distance WHEEL_DIST_RIGHT = 2.93668 * units::INCHES; // horizontal distance of right tracking wheel from center of chassis
-  static const units::Distance WHEEL_DIST = 6.075597 * units::INCHES; // horizontal distance of right tracking wheel from center of chassis
+  static const units::Distance WHEEL_DIST = 6 * units::INCHES; // horizontal distance of right tracking wheel from center of chassis
   static const units::AngularVelocity MOTOR_VEL_MAX = 600 * units::RPM; // magimum angular velocity of motors
   static const units::LinearVelocity CHASSIS_VEL_MAX = .925647835 * units::IN_PER_SEC; // maximum linear velocity of chassis
 

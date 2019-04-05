@@ -26,7 +26,7 @@ namespace chassis_controller {
     float p = error * constants.kp;
 
     // calculate I
-    if (fabs(error) <= 12 * units::FEET) move_pid_integral += error;
+    if (fabs(error) <= 4 * units::INCHES) move_pid_integral += error;
     float i = move_pid_integral *  constants.ki;
 
     // calculate D
@@ -38,24 +38,25 @@ namespace chassis_controller {
     if (move_pid_prev_voltage - pid > constants.max_accel) pid = move_pid_prev_voltage - constants.max_accel;
     
     // acount for min voltage
-    if (fabs(pid) > 500 && fabs(pid) < constants.min_voltage) pid = pid > 0 ? constants.min_voltage : -constants.min_voltage;
+    // if (fabs(error) > 1 * units::INCHES && fabs(pid) < constants.min_voltage) pid = pid > 0 ? constants.min_voltage : -constants.min_voltage;
 
     // set motors
     chassis_interface::move_voltage(pid);
     move_pid_prev_voltage = pid;
 
     // break
-    if (fabs(error) < .25 * units::INCHES || (fabs(error) < .5 * units::INCHES && fabs(pid) < 1000))  *flag = true;
+    if (fabs(chassis_interface::get_vel_linear()) <= .5 * units::INCHES / units::SEC && fabs(error) < .6 * units::INCHES) *flag = true;
+    // if (fabs(error) < .25 * units::INCHES || (fabs(error) < .5 * units::INCHES && fabs(pid) < 1000)) *flag = true;
   }
 
 
   // move distance PID
   PidConstants dist_pid_constants = {
-    .kp = 1,
-    .ki = 1,
-    .kd = 1,
-    .max_accel = 1000,
-    .min_voltage = 4000
+    .kp = 962,
+    .ki = 10,
+    .kd = -250000,
+    .max_accel = 250,
+    .min_voltage = 2500
   };
   void move_dist_pid(units::Distance dist, PidConstants constants, bool wait, bool* flag) {
 
@@ -67,11 +68,13 @@ namespace chassis_controller {
     move_pid_prev_voltage = 0;
 
     // setup flag
-    if (flag != nullptr) move_pid_flag = flag;
+    if (flag == nullptr) move_pid_flag = new bool;
+    else move_pid_flag = flag;
     *move_pid_flag = false;
 
     // wait if applicable
     if (wait) while (!*move_pid_flag) pros::delay(10);
+    chassis_interface::move_velocity_integrated(0 * units::RPM);
   }
 
 
@@ -90,7 +93,7 @@ namespace chassis_controller {
     float p = error * constants.kp;
 
     // calculate I
-    if (fabs(error) <= 12 * units::FEET) rotate_pid_integral += error;
+    if (fabs(error) <= 20 * units::DEGREES) rotate_pid_integral += error;
     float i = rotate_pid_integral *  constants.ki;
 
     // calculate D
@@ -102,24 +105,25 @@ namespace chassis_controller {
     if (rotate_pid_prev_voltage - pid > constants.max_accel) pid = rotate_pid_prev_voltage - constants.max_accel;
     
     // acount for min voltage
-    if (fabs(pid) > 500 && fabs(pid) < constants.min_voltage) pid = pid > 0 ? constants.min_voltage : -constants.min_voltage;
+    // if (fabs(pid) > 500 && fabs(pid) < constants.min_voltage) pid = pid > 0 ? constants.min_voltage : -constants.min_voltage;
 
     // set motors
     chassis_interface::move_voltage(-pid, pid);
     rotate_pid_prev_voltage = pid;
 
     // break
-    if (fabs(error) < .25 * units::INCHES || (fabs(error) < .5 * units::INCHES && fabs(pid) < 1000))  *flag = true;
+    // if (fabs(error) < 1.25 * units::DEGREES || (fabs(error) < 2.5 * units::DEGREES && fabs(pid) < 1000))  *flag = true;
+    if (fabs(chassis_interface::get_vel_orientation()) <= 20 * units::DEGREES / units::SEC && fabs(error) < 10 * units::DEGREES) *flag = true;
   }
 
 
   // rotate PID
   PidConstants orientation_pid_constants = {
-    .kp = 1,
-    .ki = 1,
-    .kd = 1,
+    .kp = 11500,
+    .ki = 20,
+    .kd = -120,
     .max_accel = 1000,
-    .min_voltage = 4000
+    .min_voltage = 2500
   };
   void rotate_pid(units::Angle orientation, PidConstants constants, bool wait, bool* flag) {
 
@@ -131,11 +135,13 @@ namespace chassis_controller {
     rotate_pid_prev_voltage = 0;
 
     // setup flag
-    if (flag != nullptr) move_pid_flag = flag;
+    if (flag == nullptr) rotate_pid_flag = new bool;
+    else rotate_pid_flag = flag;
     *rotate_pid_flag = false;
 
     // wait if applicable
-    if (wait) while (!*move_pid_flag) pros::delay(10);
+    if (wait) while (!*rotate_pid_flag) pros::delay(10);
+    // pros::delay(250);
   }
 
 
