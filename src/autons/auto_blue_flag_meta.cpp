@@ -15,8 +15,7 @@ void autons::auto_blue_flag_meta(bool park) {
 
   // get ball from under cap
   intake_controller::set_mode(intake_controller::succ);
-  chassis_controller::move_dist_pid(32 * units::INCHES);
-  pros::delay(350);
+  chassis_controller::move_dist_pid(32 * units::INCHES);\
   chassis_controller::rotate_pid(0.0 * units::DEGREES, constants_turn_precise);
   pros::delay(250);
 
@@ -39,6 +38,23 @@ void autons::auto_blue_flag_meta(bool park) {
 
   // wait for correct time and fire
   while (pros::millis() * units::MS - start_time < 7500) pros::delay(10);
+  catapult_controller::fire();
+  pros::delay(250);
+
+  // scrape
+  chassis_controller::rotate_pid(-50 * units::DEGREES);
+  chassis_controller::move_dist_pid(10.375 * units::INCHES);
+  scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_SCRAPE);
+  intake_controller::set_mode(intake_controller::succ);
+  chassis_controller::move_dist_pid(-4.5 * units::INCHES);
+  pros::delay(250);
+  chassis_controller::move_dist_pid(-14 * units::INCHES);
+
+  // shoot own flags
+  scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_VERTICAL);
+  chassis_controller::rotate_pid(-90 * units::DEGREES, constants_turn_precise);
+  while (pros::millis() * units::MS - start_time < 14500) pros::delay(10);
+  intake_controller::set_mode(intake_controller::off);
   catapult_controller::fire();
 
   

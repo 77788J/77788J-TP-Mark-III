@@ -25,8 +25,8 @@ namespace scraper_interface {
   static const units::Angle ANGLE_SCRAPER_INTAKE = -28 * units::DEGREES;
   static const units::Angle ANGLE_SCRAPER_VERTICAL = -70 * units::DEGREES;
   static const units::Angle ANGLE_SCRAPER_EXTENDED = -150 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_SCRAPE = -170 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_FLIP = -190 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_SCRAPE = -177.5 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_FLIP = -192.5 * units::DEGREES;
 
   // ports
   static const int PORT = 4;
