@@ -15,6 +15,10 @@ namespace lift_controller {
   // go to position
   void goto_angle(units::Angle angle, bool wait=true, units::Angle threshold=2*units::DEGREES);
   void goto_height(units::Distance height, bool wait=true, units::Distance threshold=.25*units::INCHES);
+  void goto_angle_custom(units::Angle angle, bool wait=true, units::Angle threshold=2*units::DEGREES);
+
+  // update
+  void update();
 }
 
 #endif

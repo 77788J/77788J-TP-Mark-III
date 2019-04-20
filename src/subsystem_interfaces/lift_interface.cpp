@@ -5,12 +5,12 @@ namespace lift_interface {
 
 
   // motor
-  pros::Motor motor(PORT, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_DEGREES);
+  pros::Motor motor(PORT, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES);
 
 
   // get current angle
   units::Angle get_angle(bool at_motor) {
-    if (!at_motor) return motor.get_position() * units::DEGREES / GEAR_REDUCTION + ANGLE_MIN;
+    if (!at_motor) return motor.get_position() * units::DEGREES / GEAR_REDUCTION + ANGLE_START;
     else return motor.get_position() * units::DEGREES;
   }
 

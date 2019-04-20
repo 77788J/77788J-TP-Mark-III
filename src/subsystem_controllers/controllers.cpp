@@ -27,19 +27,16 @@ namespace controllers {
   void update(void* params) {
     while (true) {
     
-      if (chassis_mutex.take(0)) {
         chassis_interface::update();
         chassis_controller::update();
-        chassis_mutex.give();
-      }
-      if (catapult_mutex.take(0)) {
+
         catapult_controller::update();
-        catapult_mutex.give();
-      }
-      if (intake_mutex.take(0)) {
+
+        scraper_interface::update();
+
+        lift_controller::update();
+
         intake_controller::update();
-        intake_mutex.give();
-      }
 
       pros::delay(10);
     }

@@ -5,10 +5,9 @@
 
 namespace scraper_controller {
 
-  static const units::Angle targets[4] = {
-    scraper_interface::ANGLE_SCRAPER_INTAKE,
-    scraper_interface::ANGLE_SCRAPER_VERTICAL,
-    scraper_interface::ANGLE_SCRAPER_SCRAPE,
+  static const units::Angle targets[3] = {
+    scraper_interface::ANGLE_SCRAPER_RETRACTED,
+    // scraper_interface::ANGLE_SCRAPER_VERTICAL,
     scraper_interface::ANGLE_SCRAPER_FLIP
   };
 

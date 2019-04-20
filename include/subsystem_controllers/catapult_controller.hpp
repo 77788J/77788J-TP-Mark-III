@@ -7,6 +7,8 @@ namespace catapult_controller {
 
   // voltage to be set when in override mode
   extern int override_voltage;
+  extern bool is_overriden;
+  extern units::Angle slipgear_target;
 
   // fire catapult
   void fire(bool wait_for_fire=false);

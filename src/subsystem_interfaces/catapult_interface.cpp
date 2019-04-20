@@ -6,9 +6,13 @@ namespace catapult_interface {
   pros::Motor motor(PORT, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_DEGREES);
 
 
+  // sensors
+  pros::ADIDigitalIn limit(PORT_LIMIT);
+
+
   // get current angle of slipgear
   units::Angle get_angle_slipgear(bool cumulative) {
-    return cumulative ? motor.get_position() / REDUCTION_SLIPGEAR : fmod(motor.get_position() / REDUCTION_SLIPGEAR, 120 * units::DEGREES);
+    return cumulative ? motor.get_position() / REDUCTION_SLIPGEAR : fmod(motor.get_position() / REDUCTION_SLIPGEAR, 180 * units::DEGREES);
   }
 
 

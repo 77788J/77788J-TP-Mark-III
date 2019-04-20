@@ -8,7 +8,7 @@
 namespace scraper_interface {
 
   // subsystem selection
-  enum Subsystem {subsystem_motor, scraper, brake};
+  enum Subsystem {subsystem_motor, scraper};
 
   // physical characteristics
   static const float SCRAPER_REDUCTION = 1;
@@ -19,14 +19,12 @@ namespace scraper_interface {
   static const float BRAKE_LENGTH = 5.5 * units::INCHES;
 
   // predefined positions (motor angle)
-  static const units::Angle ANGLE_BRAKE_RETRACTED = 0 * units::DEGREES;
-  static const units::Angle ANGLE_BRAKE_ENGAGED = 155 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_RETRACTED = 0 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_RETRACTED = -10 * units::DEGREES;
   static const units::Angle ANGLE_SCRAPER_INTAKE = -28 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_VERTICAL = -70 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_EXTENDED = -150 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_SCRAPE = -177.5 * units::DEGREES;
-  static const units::Angle ANGLE_SCRAPER_FLIP = -192.5 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_VERTICAL = -40 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_EXTENDED = -133 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_SCRAPE = -155 * units::DEGREES;
+  static const units::Angle ANGLE_SCRAPER_FLIP = -169 * units::DEGREES;
 
   // ports
   static const int PORT = 4;
@@ -49,6 +47,12 @@ namespace scraper_interface {
   // move with integrated position controller
   void move_position_angular(units::Angle angle, Subsystem subsystem=subsystem_motor); // move to angle
   void move_position_linear(units::Distance height, Subsystem subsystem=scraper); // move to height
+
+  // move with custom controller
+  void move_position_angular_custom(units::Angle angle);
+
+  // update
+  void update();
 }
 namespace brake_interface = scraper_interface;
 

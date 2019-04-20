@@ -22,9 +22,13 @@ namespace catapult_interface {
 
   // ports
   static const int PORT = 3;
+  static const char PORT_LIMIT = 'B';
 
   // motor
   extern pros::Motor motor;
+
+  // limit
+  extern pros::ADIDigitalIn limit;
 
   // get current angle of slipgear
   units::Angle get_angle_slipgear(bool cumulative=false);

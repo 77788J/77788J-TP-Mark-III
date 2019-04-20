@@ -55,6 +55,7 @@ namespace macros {
 
     // wait for velocity to catch up
     pros::delay(750);
+    // if (catapult_controller::is_overriden && catapult_controller::override_voltage == 2000) lift_controller::goto_angle(lift_interface::ANGLE_EXTEND);
 
     // wait for velocity to be 0
     while (catapult_interface::motor.get_actual_velocity() > 1) pros::delay(10);
@@ -64,6 +65,11 @@ namespace macros {
 
     // wait briefly for catapult to stabilize
     pros::delay(500);
+
+    // reset encoder
+    catapult_interface::motor.tare_position();
+    catapult_controller::slipgear_target = 85 * units::DEGREES;
+    
 
     // give up control of catapult
     catapult_controller::set_override(false);

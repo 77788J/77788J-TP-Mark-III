@@ -3,11 +3,6 @@
 namespace chassis_controller {
 
   // movement modes
-  enum MovementMode {
-    none,
-    dist_pid,
-    rot_pid
-  };
   MovementMode mode = none;
 
 
@@ -52,10 +47,10 @@ namespace chassis_controller {
 
   // move distance PID
   PidConstants dist_pid_constants = {
-    .kp = 962,
+    .kp = 970,
     .ki = 10,
     .kd = -250000,
-    .max_accel = 250,
+    .max_accel = 320,
     .min_voltage = 2500
   };
   void move_dist_pid(units::Distance dist, PidConstants constants, bool wait, bool* flag) {
@@ -75,6 +70,18 @@ namespace chassis_controller {
     // wait if applicable
     if (wait) while (!*move_pid_flag) pros::delay(10);
     chassis_interface::move_velocity_integrated(0 * units::RPM);
+  }
+
+
+  // move dist (PID) (with timeout)
+  void move_dist_pid(units::Distance dist, units::Time timeout, bool* flag) {
+
+    // start movement
+    move_dist_pid(dist, dist_pid_constants, false, flag);
+
+    // wait
+    units::Time t = pros::millis() * units::MS;
+    while (pros::millis() * units::MS - t < timeout && !*move_pid_flag) pros::delay(10);
   }
 
 

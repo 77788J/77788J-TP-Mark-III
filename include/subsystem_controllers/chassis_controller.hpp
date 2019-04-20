@@ -5,6 +5,13 @@
 
 namespace chassis_controller {
 
+  enum MovementMode {
+      none,
+      dist_pid,
+      rot_pid
+    };
+  extern MovementMode mode;
+
   typedef struct PidConstants {
     float kp; // proportional constant
     float ki; // integral constant
@@ -19,6 +26,9 @@ namespace chassis_controller {
 
   // move distance with custom PID controller
   void move_dist_pid(units::Distance dist, PidConstants constants=dist_pid_constants, bool wait=true, bool* flag=nullptr);
+
+  // move dist (PID) (with timeout)
+  void move_dist_pid(units::Distance dist, units::Time timeout, bool* flag=nullptr);
 
   // rotate with custom PID controller
   void rotate_pid(units::Angle orientation, PidConstants constants=orientation_pid_constants, bool wait=true, bool* flag=nullptr);

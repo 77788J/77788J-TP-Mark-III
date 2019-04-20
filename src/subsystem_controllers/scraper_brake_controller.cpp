@@ -11,10 +11,10 @@ namespace scraper_controller {
   void goto_angle(units::Angle angle, bool wait, units::Angle threshold) {
 
     // set vars
-    if (angle != scraper_interface::ANGLE_BRAKE_ENGAGED) is_braked = false;
+    // if (angle != scraper_interface::ANGLE_BRAKE_ENGAGED) is_braked = false;
 
     // move
-    scraper_interface::move_position_angular(angle);
+    scraper_interface::move_position_angular_custom(angle);
 
     // wait
     if (wait) while (fabs(scraper_interface::get_angle() - angle) > threshold) pros::delay(10);
@@ -24,7 +24,7 @@ namespace scraper_controller {
   // brake
   void brake(bool wait, units::Angle threshold) {
     is_braked = true;
-    goto_angle(scraper_interface::ANGLE_BRAKE_ENGAGED, wait, threshold);
+    // goto_angle(scraper_interface::ANGLE_BRAKE_ENGAGED, wait, threshold);
   }
 }
 

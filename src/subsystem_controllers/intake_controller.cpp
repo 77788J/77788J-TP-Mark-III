@@ -82,12 +82,17 @@ namespace intake_controller {
         // if (ball_in_intake && (balls_loaded >= max_balls_loaded)) intake_interface::move_velocity(0);
         // else if ((ball && balls_in_possession < max_balls_in_posession) || (ball_in_intake && balls_loaded < max_balls_loaded))
         //   intake_interface::move_voltage(12000);
-        if (ball) intake_interface::move_voltage(12000);
+        if (intake_interface::get_limit_pressed()) {
+          intake_interface::move_voltage(0);
+          time_since_intake = 1000;
+        }
+        else if (ball) intake_interface::move_voltage(12000);
         else if (time_since_intake <= 750 * units::MS) intake_interface::move_voltage(12000);
         else intake_interface::move_voltage(0);
 
         time_since_intake += 10;
       }
     }
+    else time_since_intake = 1000;
   }
 }

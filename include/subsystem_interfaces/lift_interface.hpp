@@ -13,8 +13,9 @@ namespace lift_interface {
   static const units::Distance FULCRUM_HEIGHT = 18 * units::INCHES;
 
   // predefined positions
-  static const units::Angle ANGLE_MIN = -45 * units::DEGREES;
-  static const units::Angle ANGLE_MAX = 135 * units::DEGREES;
+  static const units::Angle ANGLE_START = -45 * units::DEGREES;
+  static const units::Angle ANGLE_MIN = -50 * units::DEGREES;
+  static const units::Angle ANGLE_MAX = 140 * units::DEGREES;
   static const units::Angle ANGLE_EXTEND = 0 * units::DEGREES;
   static const units::Angle ANGLE_HOLD_CAP = -25 * units::DEGREES;
 
