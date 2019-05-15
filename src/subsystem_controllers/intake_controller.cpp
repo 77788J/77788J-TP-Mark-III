@@ -28,8 +28,9 @@ namespace intake_controller {
     switch (m) {
       case (automatic): break;
       case (succ): intake_interface::move_voltage(12000); break;
+      case (succ_hold): intake_interface::move_voltage(12000); break;
       case (spit): intake_interface::move_voltage(-12000);  break;
-      case(off): intake_interface::move_voltage(0); break;
+      case (off): intake_interface::move_voltage(0); break;
       case (hold): intake_interface::move_velocity(0); break;
     }
   }
@@ -59,8 +60,6 @@ namespace intake_controller {
       ball_in_intake = true;
     }
 
-    limit_pressed = limit_now;
-
     // auto intake
     if (mode == automatic) {
 
@@ -82,7 +81,7 @@ namespace intake_controller {
         // if (ball_in_intake && (balls_loaded >= max_balls_loaded)) intake_interface::move_velocity(0);
         // else if ((ball && balls_in_possession < max_balls_in_posession) || (ball_in_intake && balls_loaded < max_balls_loaded))
         //   intake_interface::move_voltage(12000);
-        if (intake_interface::get_limit_pressed()) {
+        if (intake_interface::get_limit_pressed() && limit_pressed) {
           intake_interface::move_voltage(0);
           time_since_intake = 1000;
         }
@@ -93,6 +92,11 @@ namespace intake_controller {
         time_since_intake += 10;
       }
     }
+    else if (mode == succ_hold) {
+      if (limit_now) intake_interface::move_velocity(0);
+    }
     else time_since_intake = 1000;
+
+    limit_pressed = intake_interface::get_limit_pressed();
   }
 }

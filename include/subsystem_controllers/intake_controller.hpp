@@ -11,7 +11,7 @@ namespace intake_controller {
   extern pros::Vision vision;
 
   // intake mode
-  enum IntakeMode {automatic, succ, spit, off, hold};
+  enum IntakeMode {automatic, succ, succ_hold, spit, off, hold};
   extern IntakeMode mode;
   extern bool enable_automatic;
 

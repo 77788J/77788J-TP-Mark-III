@@ -10,7 +10,6 @@ bool chassis_braked = false;
 void opcontrol() {
   Joystick controller;
 
-  interfaces::initialize();
   controller.controller.set_text(0, 0, intake_controller::enable_automatic ? "AUTO ENABLED" : "AUTO DISABLED");
 
   while (true) {
@@ -34,18 +33,17 @@ void opcontrol() {
         catapult_controller::set_override(true);
       }
       if (controller.btn_x_new == -1) catapult_controller::set_override(false);
-      if (controller.btn_y_new == 1) macros::set_macro(macros::macro_calibrate_slipgear);
       controllers::catapult_mutex.give();
     }
 
     // intake
     if (controllers::intake_mutex.take(0)) {
-      if (controller.btn_right_new == 1) {
+      if (controller.btn_left_new == 1) {
         intake_controller::enable_automatic = !intake_controller::enable_automatic;
         controller.controller.set_text(0, 0, intake_controller::enable_automatic ? "AUTO ENABLED" : "AUTO DISABLED");
       }
       if (controller.btn_r2) intake_controller::set_mode(intake_controller::succ);
-      else if (controller.btn_a) intake_controller::set_mode(intake_controller::spit);
+      else if (controller.btn_y) intake_controller::set_mode(intake_controller::spit);
       else intake_controller::set_mode(intake_controller::automatic);
       controllers::intake_mutex.give();
     }
@@ -73,7 +71,7 @@ void opcontrol() {
 
     // scraper/brake
     if (controllers::scraper_mutex.take(0)) {
-      if (controller.btn_l1 && controller.btn_l2) {
+      if (controller.btn_right) {
         scraper_controller::brake(false);
         if (!chassis_braked && controllers::chassis_mutex.take(0)) {
           chassis_braked = true;

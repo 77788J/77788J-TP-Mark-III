@@ -1,25 +1,7 @@
 #include "autons.hpp"
 #include "subsystem_controllers/controllers.hpp"
 
-void autons::auto_blue_flag(bool park) {
-
-  chassis_controller::PidConstants slow_decel = {
-    .kp = 980,
-    .ki = 10,
-    .kd = -280000,
-    .max_accel = 320,
-    .max_voltage = 12000,
-    .min_voltage = 2500
-  };
-
-  chassis_controller::PidConstants slow_orientation = {
-    .kp = 5500,
-    .ki = 15,
-    .kd = -69,
-    .max_accel = 250,
-    .max_voltage = 12000,
-    .min_voltage = 2500
-  };
+void autons::auto_red_flag_middle_first(bool park) {
 
   // move to cap and scrape
   chassis_controller::move_dist_pid(17.3 * units::INCHES);
@@ -36,35 +18,35 @@ void autons::auto_blue_flag(bool park) {
   intake_controller::set_mode(intake_controller::succ);
   chassis_controller::move_dist_pid(-2.75 * units::INCHES);
   pros::delay(500);
-  scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_RETRACTED, false);
-  chassis_controller::move_dist_pid(-chassis_interface::get_dist_linear() - 1 * units::INCHES);
+  chassis_controller::move_dist_pid(-chassis_interface::get_dist_linear());
 
   // rotate to flags
-  chassis_controller::rotate_pid(91 * units::DEGREES);
+  chassis_controller::rotate_pid(90 * units::DEGREES);
 
   // shoot
   intake_controller::set_mode(intake_controller::off);
   catapult_controller::fire(true);
 
   // go to platform
-  chassis_controller::rotate_pid(210 * units::DEGREES);
+  chassis_controller::rotate_pid(-30 * units::DEGREES);
   scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_RETRACTED, false);
-  chassis_controller::move_dist_pid(21 * units::INCHES);
+  chassis_controller::move_dist_pid(18 * units::INCHES);
 
   // scrape platform
   scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_FLIP, false);
   intake_controller::set_mode(intake_controller::succ);
   pros::delay(250);
-  chassis_controller::rotate_pid(220 * units::DEGREES);
-  chassis_controller::move_dist_pid(-18 * units::INCHES);
+  chassis_controller::move_dist_pid(-16 * units::INCHES);
   scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_RETRACTED, false);
 
   // goto cap
-  chassis_controller::rotate_pid(178 * units::DEGREES);
-  chassis_controller::move_dist_pid(46 * units::INCHES, slow_decel);
+  chassis_controller::rotate_pid(-2 * units::DEGREES);
+  chassis_controller::move_dist_pid(44 * units::INCHES);
 
   // rotate and shoot
-  chassis_controller::rotate_pid(87.5 * units::DEGREES, slow_orientation);
-  pros::delay(250);
+  chassis_controller::rotate_pid(83 * units::DEGREES);
   catapult_controller::fire(true);
+
+  
+
 }

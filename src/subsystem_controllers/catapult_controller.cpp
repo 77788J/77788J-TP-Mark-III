@@ -26,9 +26,6 @@ namespace catapult_controller {
 
     if (wait_for_fire) {
       while (catapult_interface::limit.get_value()) pros::delay(10);
-      intake_controller::balls_loaded = 0;
-      intake_controller::balls_in_possession = 0;
-      while (!catapult_interface::limit.get_value()) pros::delay(10);
     }
     intake_controller::balls_loaded = 0;
     intake_controller::balls_in_possession = 0;

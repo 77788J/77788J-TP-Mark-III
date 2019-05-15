@@ -11,4 +11,6 @@ void autonomous() {
   try {if (autons::selected != nullptr) autons::selected(autons::park);}
   catch (...) {}
 
+  // autons::auto_red_cap(false);
+
 }

@@ -32,25 +32,26 @@ namespace chassis_controller {
     if (pid - move_pid_prev_voltage > constants.max_accel) pid = move_pid_prev_voltage + constants.max_accel;
     if (move_pid_prev_voltage - pid > constants.max_accel) pid = move_pid_prev_voltage - constants.max_accel;
     
-    // acount for min voltage
-    // if (fabs(error) > 1 * units::INCHES && fabs(pid) < constants.min_voltage) pid = pid > 0 ? constants.min_voltage : -constants.min_voltage;
+    // acount for max voltage
+    if (fabs(pid) > constants.max_voltage) pid = pid > 0 ? constants.max_voltage : -constants.max_voltage;
 
     // set motors
     chassis_interface::move_voltage(pid);
     move_pid_prev_voltage = pid;
 
     // break
-    if (fabs(chassis_interface::get_vel_linear()) <= .5 * units::INCHES / units::SEC && fabs(error) < .6 * units::INCHES) *flag = true;
+    if (fabs(chassis_interface::get_vel_linear()) <= 3 * units::INCHES / units::SEC && fabs(error) < .6 * units::INCHES) *flag = true;
     // if (fabs(error) < .25 * units::INCHES || (fabs(error) < .5 * units::INCHES && fabs(pid) < 1000)) *flag = true;
   }
 
 
   // move distance PID
   PidConstants dist_pid_constants = {
-    .kp = 970,
+    .kp = 1450,
     .ki = 10,
-    .kd = -250000,
-    .max_accel = 320,
+    .kd = -150000,
+    .max_accel = 910,
+    .max_voltage = 12000,
     .min_voltage = 2500
   };
   void move_dist_pid(units::Distance dist, PidConstants constants, bool wait, bool* flag) {
@@ -58,7 +59,7 @@ namespace chassis_controller {
     // set vals
     mode = dist_pid;
     move_pid_target = dist + chassis_interface::get_dist_linear();
-    move_pid_constants = dist_pid_constants;
+    move_pid_constants = constants;
     move_pid_integral = 0;
     move_pid_prev_voltage = 0;
 
@@ -111,8 +112,8 @@ namespace chassis_controller {
     if (pid - rotate_pid_prev_voltage > constants.max_accel) pid = rotate_pid_prev_voltage + constants.max_accel;
     if (rotate_pid_prev_voltage - pid > constants.max_accel) pid = rotate_pid_prev_voltage - constants.max_accel;
     
-    // acount for min voltage
-    // if (fabs(pid) > 500 && fabs(pid) < constants.min_voltage) pid = pid > 0 ? constants.min_voltage : -constants.min_voltage;
+    // acount for max voltage
+    if (fabs(pid) > constants.max_voltage) pid = pid > 0 ? constants.max_voltage : -constants.max_voltage;
 
     // set motors
     chassis_interface::move_voltage(-pid, pid);
@@ -126,10 +127,11 @@ namespace chassis_controller {
 
   // rotate PID
   PidConstants orientation_pid_constants = {
-    .kp = 11500,
+    .kp = 10750,
     .ki = 20,
-    .kd = -120,
+    .kd = -132,
     .max_accel = 1000,
+    .max_voltage = 12000,
     .min_voltage = 2500
   };
   void rotate_pid(units::Angle orientation, PidConstants constants, bool wait, bool* flag) {
@@ -137,7 +139,7 @@ namespace chassis_controller {
     // set vals
     mode = rot_pid;
     rotate_pid_target = orientation;
-    rotate_pid_constants = orientation_pid_constants;
+    rotate_pid_constants = constants;
     rotate_pid_integral = 0;
     rotate_pid_prev_voltage = 0;
 

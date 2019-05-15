@@ -1,4 +1,5 @@
 #include "auton_selector.hpp"
+#include "subsystem_controllers/chassis_controller.hpp"
 
 namespace auton_selector {
 
@@ -12,11 +13,12 @@ namespace auton_selector {
 
 
   // callbacks
-  lv_res_t btn_click_action_red_flag(lv_obj_t * btn) {autons::selected = autons::auto_red_flag; return LV_RES_OK;}
-  lv_res_t btn_click_action_red_cap(lv_obj_t * btn) {autons::selected = nullptr; return LV_RES_OK;}
-  lv_res_t btn_click_action_blue_flag(lv_obj_t * btn) {autons::selected = nullptr; return LV_RES_OK;}
-  lv_res_t btn_click_action_blue_cap(lv_obj_t * btn) {autons::selected = nullptr; return LV_RES_OK;}
-  lv_res_t btn_click_action_no_auton(lv_obj_t * btn) {autons::selected = nullptr; return LV_RES_OK;}
+  // lv_res_t btn_click_action_red_flag(lv_obj_t * btn) {autons::selected = autons::auto_red_flag; chassis_interface::reset_orientation(); return LV_RES_OK;}
+  lv_res_t btn_click_action_red_flag(lv_obj_t * btn) {autons::selected = autons::auto_red_3_flag; chassis_interface::reset_orientation(); return LV_RES_OK;}
+  lv_res_t btn_click_action_red_cap(lv_obj_t * btn) {autons::selected = autons::auto_red_cap; chassis_interface::reset_orientation(); return LV_RES_OK;}
+  lv_res_t btn_click_action_blue_flag(lv_obj_t * btn) {autons::selected = autons::auto_blue_3_flag; chassis_interface::reset_orientation(180 * units::DEGREES); return LV_RES_OK;}
+  lv_res_t btn_click_action_blue_cap(lv_obj_t * btn) {autons::selected = autons::auto_blue_cap; chassis_interface::reset_orientation(180 * units::DEGREES); return LV_RES_OK;}
+  lv_res_t btn_click_action_no_auton(lv_obj_t * btn) {autons::selected = nullptr; chassis_interface::reset_orientation(); return LV_RES_OK;}
 
 
   // create all display objects

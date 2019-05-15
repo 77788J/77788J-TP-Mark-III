@@ -32,6 +32,8 @@ namespace scraper_interface {
   // motor
   extern pros::Motor motor;
 
+  extern int max_voltage;
+
   // get current angle
   units::Angle get_angle(Subsystem subsystem=subsystem_motor);
 

@@ -1,7 +1,7 @@
 #include "autons.hpp"
 #include "subsystem_controllers/controllers.hpp"
 
-void autons::auto_blue_flag(bool park) {
+void autons::auto_red_flag(bool park) {
 
   chassis_controller::PidConstants slow_decel = {
     .kp = 980,
@@ -37,17 +37,17 @@ void autons::auto_blue_flag(bool park) {
   chassis_controller::move_dist_pid(-2.75 * units::INCHES);
   pros::delay(500);
   scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_RETRACTED, false);
-  chassis_controller::move_dist_pid(-chassis_interface::get_dist_linear() - 1 * units::INCHES);
+  chassis_controller::move_dist_pid(-chassis_interface::get_dist_linear() - 2 * units::INCHES);
 
   // rotate to flags
-  chassis_controller::rotate_pid(91 * units::DEGREES);
+  chassis_controller::rotate_pid(89 * units::DEGREES);
 
   // shoot
   intake_controller::set_mode(intake_controller::off);
   catapult_controller::fire(true);
 
   // go to platform
-  chassis_controller::rotate_pid(210 * units::DEGREES);
+  chassis_controller::rotate_pid(-30 * units::DEGREES);
   scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_RETRACTED, false);
   chassis_controller::move_dist_pid(21 * units::INCHES);
 
@@ -55,16 +55,16 @@ void autons::auto_blue_flag(bool park) {
   scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_FLIP, false);
   intake_controller::set_mode(intake_controller::succ);
   pros::delay(250);
-  chassis_controller::rotate_pid(220 * units::DEGREES);
+  chassis_controller::rotate_pid(-40 * units::DEGREES);
   chassis_controller::move_dist_pid(-18 * units::INCHES);
   scraper_controller::goto_angle(scraper_interface::ANGLE_SCRAPER_RETRACTED, false);
 
   // goto cap
-  chassis_controller::rotate_pid(178 * units::DEGREES);
+  chassis_controller::rotate_pid(1.69 * units::DEGREES);
   chassis_controller::move_dist_pid(46 * units::INCHES, slow_decel);
 
   // rotate and shoot
-  chassis_controller::rotate_pid(87.5 * units::DEGREES, slow_orientation);
+  chassis_controller::rotate_pid(92 * units::DEGREES, slow_orientation);
   pros::delay(250);
   catapult_controller::fire(true);
 }

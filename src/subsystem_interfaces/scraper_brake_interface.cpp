@@ -69,6 +69,7 @@ namespace scraper_interface {
 
 
   // move with custom controller
+  int max_voltage = 12000;
   void move_position_angular_custom(units::Angle angle) {
     angle_target = angle;
     custom_enabled = true;
@@ -80,6 +81,8 @@ namespace scraper_interface {
     units::Angle current = get_angle();
 
     units::Angle error = angle_target - current;
-    move_voltage(error * 7600);
+    int v = error * 7600;
+    if (abs(v) > max_voltage) v = (v > 0) ? max_voltage : -max_voltage;
+    move_voltage(v);
   }
 }
